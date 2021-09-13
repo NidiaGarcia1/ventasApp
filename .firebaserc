@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "ventasapp-1276e": {
+      "hosting": {
+        "ventasApp": [
+          "ventasapp-1276e"
+        ]
+      }
+    }
+  }
+}

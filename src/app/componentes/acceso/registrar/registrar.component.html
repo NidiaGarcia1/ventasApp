@@ -1,0 +1,81 @@
+<form #frmRegistro="ngForm" class="form-enable">
+    <div class="card">
+      <div class="card-header">
+        <h2>Registrar Nuevo Usuario</h2>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label>Nombre:</label>
+          <input
+            name="inp_nombres"
+            #inp_nombres="ngModel"
+            type="text"
+            class="form-control"
+            [(ngModel)]="usuario.nombres"
+            required="true"
+          />
+          <div>
+            <span class="text-danger" *ngIf="inp_nombres.invalid">
+                *El nombre es obligatorio</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Correo:</label>
+          <input
+            name="inp_correo"
+            #inp_correo="ngModel"
+            type="text"
+            class="form-control"
+            [(ngModel)]="usuario.correo"
+            required="true"
+          />
+          <div>
+            <span class="text-danger" *ngIf="inp_correo.invalid">
+                *El correo es obligatorio</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Nueva contraseña:</label>
+          <input
+            name="inp_password"
+            #inp_password="ngModel"
+            type="password"
+            class="form-control"
+            [(ngModel)]="usuario.contrasena"
+            (keypress)="keyPress($event)"
+            required="true"
+          />
+          <div>
+            <span class="text-danger" *ngIf="inp_password.invalid">
+                *La contraseña es obligatoria</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Confirmar contraseña:</label>
+          <input
+            name="inp_contrasena_confirmar"
+            type="password"
+            class="form-control"
+            [(ngModel)]="contrasena_confirmar"
+            (keypress)="keyPress($event)"
+            required="true"
+          />
+          <div>
+            <span class="text-danger">{{ mensaje_contrasena }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button
+          class="btn btn-success"
+          (click)="registrarUsuario(frmRegistro)"
+          [disabled]="frmRegistro.invalid || passwordDif()">
+          Registrar
+        </button>
+        <button class="btn btn-warning ml-3" (click)="limpiarCampos()">
+          Limpiar
+        </button>
+      </div>
+    </div>
+  </form>
+  
