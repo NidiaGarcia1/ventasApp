@@ -1,1 +1,67 @@
-<p>agregar-productos works!</p>
+<form #frmRegistro="ngForm">
+    <div class="card">
+        <div class="card-header text-center">
+            <h2>Agregar Producto</h2>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label>Nombre:</label>
+                <input
+                    name="inp_nombre"
+                    #inp_nombre="ngModel"
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="producto.nombre"
+                    required="true"
+                />
+                <div>
+                    <span class="text-danger" *ngIf="inp_nombre.invalid">
+                        *El nombre es obligatorio
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Descripción:</label>
+                <input
+                    name="inp_descripcion"
+                    #inp_descripcion="ngModel"
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="producto.descripcion"
+                    required="true"
+                />
+                <div>
+                    <span class="text-danger" *ngIf="inp_descripcion.invalid">
+                        *La descripción es obligatoria
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Imagen:</label>
+                <input
+                    name="inp_imagen"
+                    #inp_imagen="ngModel"
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="producto.imagen"
+                    required="true"
+                />
+                <div>
+                    <span class="text-danger" *ngIf="inp_imagen.invalid">
+                        *La imagen es obligatoria
+                    </span>
+                </div>
+            </div>              
+        </div>    
+        <div class="card-footer">
+            <button class="btn btn-success"
+            (click)="registrarProducto(frmRegistro)"
+            [disabled]="frmRegistro.invalid">
+                Registrar 
+            </button>
+            <button class="btn btn-warning ml-3" (click)="limpiarCampos()">
+                Limpiar
+            </button>
+        </div>
+    </div>>
+</form>

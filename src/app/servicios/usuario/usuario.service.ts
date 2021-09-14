@@ -8,11 +8,26 @@ import { Usuario } from 'src/app/interfaces/usuario';
 export class UsuarioService {
 
   coleccion_usuarios:string = 'usuarios'
+  coleccion_roles:string = 'roles'
   constructor(private afs:AngularFirestore) { }
 
+  acceder(usuario:Usuario){
+    return this.afs.collection(this.coleccion_usuarios, ref => 
+      ref
+      .where('correo','==',usuario.correo)
+      .where('contrasena','==',usuario.contrasena)
+      .limit(1)
+    ).valueChanges();
+  }
+  
   listarUsuarios(){
     return this.afs.collection(this.coleccion_usuarios).valueChanges()
   }
+
+  listarRoles(){
+    return this.afs.collection(this.coleccion_roles).valueChanges()
+  }
+
 
   agregarUsuario(usuario:Usuario){
     usuario.usuario_id = this.agregarCodigoId(usuario)
