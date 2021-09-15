@@ -1,1 +1,151 @@
-<p>agregar-venta works!</p>
+<div class="card">
+    <div class="card-header">
+        <h3>Modulo de Ventas</h3>
+    </div>
+    <div class ="card-header">
+        <div class="row">
+            <div class="col-8">
+                <div class="input-group">
+                    <input name="inp_busqueda"
+                    [(ngModel)]="input_busqueda"
+                    (keypress)="keyPress($event)"
+                    (keydown.backspace)="keyBackspace($event)"
+                    type="text" class="form-control" placeholder="Ej: Galleta..."/>
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="basic-addon2">
+                          <i class="fa fa-search" >Buscar</i></span>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-2" >
+                <div class="display text-center vertical-center" sytle="width:110%">
+                    {{monto_total}}
+                </div>
+            </div>
+            <div class="col-2">
+                <button type="button"
+                style="width:100%" 
+                class="btn btn-outline-success btn-lg ml-3" 
+                (click)="generarVenta()">
+                    Generar Venta
+                    <i class="fa fa-check-circle-o ml-1"></i>
+                </button>                
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8">
+                <div class="container-fluid">
+                    <div class="tableContent">
+                        <table class="table table-striped tabled-hover no-wrap">
+                            <thead>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th class="text-center">Precio $</th>
+                                <th class="text-center"><i class="fa fa-picture-o"></i></th>
+                                <th class="text-center">
+                                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of lista_productos_disponibles">
+                                <td>{{producto.producto_id}}</td>
+                                <td>{{producto.nombre}}</td>
+                                <td class="text-center">{{producto.precio}}</td>
+                                <td class="text-center">
+                                    <img [src]="producto.imagen" width="30px" height="30px">
+                                </td>
+                                <td class="text-center"> 
+                                    <button class="btn btn-warning" (click)="agregarProducto(modalAgregar,producto)">
+                                        <i class="fa fa-plus-square" ></i>
+                                    </button>
+                                </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                
+            </div>
+
+            <div class="col-4">
+                <div class="container-fluid">
+                    <div class="tableContent">
+                        <table class="table table-striped tabled-hover no-wrap">
+                            <thead>
+                                <th>Nombre</th>
+                                <th>Cantidad</th>
+                                <th>Precio $</th>
+                                <th class = "text-center"><i class = "fa fa-trash"></i></th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of lista_productos_seleccionados; let i = index">
+                                <td>{{producto.nombre}}</td>
+                                <td>{{producto.cantidad}}</td>
+                                <td>{{producto.precio}}</td>
+                                <td class = "text-center">
+                                    <button class="btn btn-danger" (click)="quitarProductoSeleccionado(i)">
+                                    <i class = "fa fa-trash"></i>
+                                </button>
+                                </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalAgregar let-c="close" let-d="dismiss">
+    <form #formAgregar="ngForm" class="form-enable">
+    <div class = "modal-header d-flex align-items-center">
+        <span class="h5 m-0"><i class="fa fa-filter mr-1"></i>Modal Agregar Producto</span>
+        <button class="close d-flex text-dark m-0 p-0" (click)="d('Cross click')">
+            <i class="fa fa-times"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-9">
+                <textarea 
+                [(ngModel)]="producto_seleccionado.descripcion"
+                name="inp_txtarea_descripcion" 
+                cols="30" 
+                rows="5" 
+                disabled>
+                </textarea>
+            </div>
+            <div class="col-3">
+                <img [src]="producto_seleccionado.imagen" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="input-group">
+                    <input 
+                    name="inp_cantidad" 
+                    [(ngModel)]="producto_seleccionado.cantidad"
+                    class="form-control" 
+                    type="number" 
+                    min="0" 
+                    max="100"
+                    placeholder="Ingrege la cantidad...">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-lg" (click)="c('Save')">
+            Agregar
+            <i class="fa fa-plus-square-o ml-1"></i>
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-lg" (click)="c('Close')">
+            Cerrar
+            <i class="fa fa-times ml-1" ></i>
+        </button>
+    </div>
+</form>
+</ng-template>

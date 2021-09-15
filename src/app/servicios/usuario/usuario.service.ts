@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Usuario } from 'src/app/interfaces/usuario';
@@ -9,7 +10,7 @@ export class UsuarioService {
 
   coleccion_usuarios:string = 'usuarios'
   coleccion_roles:string = 'roles'
-  constructor(private afs:AngularFirestore) { }
+  constructor(private afs:AngularFirestore, private httpClient:HttpClient) { }
 
   acceder(usuario:Usuario){
     return this.afs.collection(this.coleccion_usuarios, ref => 
@@ -46,5 +47,11 @@ export class UsuarioService {
     let fecha_actual_ms:string = new Date().getTime().toString()
     let letra_nombre:string = usuario.nombres.substring(0,3)
     return fecha_actual_ms + letra_nombre
+  }
+
+  //Consumiendo un servicio rest de tipo GET desde
+  url:string = 'https://gorest.co.in/public/v1/users';
+  listarUsuariosRest(){
+    return this.httpClient.get(this.url);
   }
 }
