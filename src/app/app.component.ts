@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Usuario } from './interfaces/usuario';
+import { Venta } from './interfaces/venta';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ export class AppComponent {
   activeSession: boolean;
   usuario:Usuario = {};
   constructor(){
-  
     this.usuario = JSON.parse(window.localStorage.getItem('VENTAS_APP_USER')) ;
   }
+
 }

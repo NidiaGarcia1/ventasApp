@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Venta } from 'src/app/interfaces/venta';
+import { VentaService } from 'src/app/servicios/venta/venta.service';
 
 @Component({
   selector: 'app-listar-venta',
@@ -6,10 +9,38 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./listar-venta.component.css']
 })
 export class ListarVentaComponent implements OnInit {
-
-  constructor() { }
+  lista_ventas : Venta[];
+  constructor(private ngbModal: NgbModal, private ventaService: VentaService) {
+    this.inicializarVariables();
+   }
 
   ngOnInit(): void {
+    this.listarVentas();
   }
+
+  listarVentas(){
+    this.ventaService.listarVentas().subscribe((ventas)=>{
+      this.lista_ventas = ventas;
+    });
+  }
+
+  AbrirModalAgregarVenta(modalAgregarVenta){
+    this.ngbModal
+      .open(modalAgregarVenta,{
+        centered: true,
+        size: 'xl',
+        scrollable: true,
+        backdrop: 'static',
+      })
+      .result.then(
+        (result) => {},
+        (result) => {}
+      );
+  }
+
+  inicializarVariables(){
+    this.lista_ventas = []
+  }
+
 
 }

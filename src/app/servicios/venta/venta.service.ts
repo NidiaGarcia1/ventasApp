@@ -12,6 +12,10 @@ export class VentaService {
 
   }
 
+  listarVentas(){
+    return this.afs.collection(this.coleccion_venta).valueChanges()
+  }
+
   registrarVenta(venta:Venta){
   venta.venta_id= this.agregarCodigoId(venta);
   return  this.afs.doc(this.coleccion_venta+'/'+ venta.venta_id).set(venta)
