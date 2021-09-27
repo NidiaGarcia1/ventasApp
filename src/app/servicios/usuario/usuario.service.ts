@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
 import { Usuario } from 'src/app/interfaces/usuario';
 
 @Injectable({
@@ -10,7 +11,14 @@ export class UsuarioService {
 
   coleccion_usuarios:string = 'usuarios'
   coleccion_roles:string = 'roles'
-  constructor(private afs:AngularFirestore, private httpClient:HttpClient) { }
+  usuario_actual: any; //variable que permace todo el ciclo de vida del servicio
+  constructor(
+    private afs:AngularFirestore, 
+    private httpClient:HttpClient,
+    private router: Router
+    ) {
+      this.usuario_actual = JSON.parse(window.localStorage.getItem('VENTAS_APP_USER'));
+     }
 
   acceder(usuario:Usuario){
     return this.afs.collection(this.coleccion_usuarios, ref => 
@@ -18,7 +26,18 @@ export class UsuarioService {
       .where('correo','==',usuario.correo)
       .where('contrasena','==',usuario.contrasena)
       .limit(1)
-    ).valueChanges();
+    )
+    .valueChanges()
+    .subscribe((usuarios)=>{
+      if(usuarios.length > 0 ){
+        window.localStorage.setItem('VENTAS_APP_USER',JSON.stringify(usuarios[0])
+        );
+        this.usuario_actual = usuarios[0];
+        this.router.navigate(['../menu']);
+      }else{
+        alert('Usuario o contraseña incorrectos');
+      }
+    });
   }
   
   listarUsuarios(){
@@ -54,4 +73,19 @@ export class UsuarioService {
   listarUsuariosRest(){
     return this.httpClient.get(this.url);
   }
+
+  checkLoging(){
+    if(this.usuario_actual){
+      return true;
+    }else {
+      return false;
+    }
+  }
+
+  logOut() {
+    this.usuario_actual = null;
+    window.localStorage.removeItem('VENTAS_APP_USER');
+    this.router.navigate(['../login']);
+  }
+
 }

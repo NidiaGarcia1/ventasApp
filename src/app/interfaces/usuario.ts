@@ -1,4 +1,5 @@
-import { Rol } from './Rol';
+import { Rol } from "./Rol";
+
 export interface Usuario {
     usuario_id?: string;
     nombres?: string;

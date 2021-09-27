@@ -15,21 +15,16 @@ export class LoginComponent implements OnInit {
     this.inicializarVariables();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(window.localStorage.getItem('VENTAS_APP_USER')){
+      this.router.navigate(['../menu'])
+    }
+  }
 
   ingresar(frmAcceso:NgForm){
     console.log("ingresando")
     if(frmAcceso.valid){
-      this.usuarioService.acceder(this.usuario).subscribe((usuarios)=>{
-        //si el arreglo de usuario es mayor a 0
-        //almacenar al usuario de la posicion 0 en el localStorage
-        if(usuarios.length > 0){
-          window.localStorage.setItem(
-            'VENTAS_APP_USER',
-            JSON.stringify(usuarios[0])
-          );
-        }
-      });
+      this.usuarioService.acceder(this.usuario);
     }else{
       alert('Llene todos los campos de acceso');
     }

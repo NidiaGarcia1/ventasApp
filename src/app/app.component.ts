@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Usuario } from './interfaces/usuario';
-import { Venta } from './interfaces/venta';
+import { UsuarioService } from './servicios/usuario/usuario.service';
+
 
 @Component({
   selector: 'app-root',
@@ -10,8 +12,17 @@ import { Venta } from './interfaces/venta';
 export class AppComponent {
   activeSession: boolean;
   usuario:Usuario = {};
-  constructor(){
+  constructor(private router:Router, private usuarioService:UsuarioService){
     this.usuario = JSON.parse(window.localStorage.getItem('VENTAS_APP_USER')) ;
   }
+  
+  checkLogin(){
+    return this.usuarioService.checkLoging();
+  }
 
+
+  logOut(){
+    window.localStorage.removeItem('VENTAS_APP_USER');
+    this.router.navigate(['../login']);
+  }
 }

@@ -3,10 +3,10 @@
     <div class="d-flex justify-content-center">
       <h1>Sistema de Venta de productos</h1>
     </div>
-    <div *ngIf="usuario && usuario.usuario_id" class="d-flex flex-row-reverse">
-      <button class="btn btn-danger" [routerLink]="['/']"> Cerrar Sesión</button>
+    <div *ngIf="checkLogin()" class="d-flex flex-row-reverse">
+      <button class="btn btn-danger" (click)="logOut()"> Cerrar Sesión</button>
     </div>
-    <div *ngIf="!(usuario && usuario.usuario_id)" class="d-flex flex-row-reverse">
+    <div *ngIf="!checkLogin()" class="d-flex flex-row-reverse">
       <div class="p-2">
         <button class="btn btn-primary" [routerLink]="['/login']">
           Autenticar
@@ -24,8 +24,9 @@
   </div>
 </div>
 <!-- Se habilita app-agregar-venta para registrar la venta de una lista de productos seleccionados -->
- <app-agregar-venta></app-agregar-venta> 
- <app-listar-venta></app-listar-venta> 
+<!-- <app-menu></app-menu> -->
+ <!-- <app-agregar-venta></app-agregar-venta>  -->
+ <!-- <app-listar-venta></app-listar-venta>  -->
 <!-- <app-listar-productos></app-listar-productos> -->
 <!-- Se habilita app-agregar-productos para ingresar más productos a la bd -->
 <!-- <app-agregar-productos></app-agregar-productos> -->

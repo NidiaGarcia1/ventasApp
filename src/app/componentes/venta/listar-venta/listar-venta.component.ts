@@ -10,6 +10,8 @@ import { VentaService } from 'src/app/servicios/venta/venta.service';
 })
 export class ListarVentaComponent implements OnInit {
   lista_ventas : Venta[];
+  venta_seleccionada : Venta;
+  public isCollapsed = true;
   constructor(private ngbModal: NgbModal, private ventaService: VentaService) {
     this.inicializarVariables();
    }
@@ -36,6 +38,22 @@ export class ListarVentaComponent implements OnInit {
         (result) => {},
         (result) => {}
       );
+  }
+
+  
+  abrirModalDetalles(modalDetalles, venta){
+    this.venta_seleccionada = venta;
+    this.ngbModal
+    .open(modalDetalles,{
+      centered: true,
+      size: 'lg',
+      scrollable: true,
+      backdrop: 'static',
+    })
+    .result.then(
+      (result) => {},
+      (result) => {}
+    );    
   }
 
   inicializarVariables(){

@@ -15,6 +15,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { MenuComponent } from './componentes/menu/menu.component';
+import { FbdatePipe } from './pipes/fbdate.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { HttpClientModule } from '@angular/common/http';
     AgregarProductosComponent,
     ListarProductosComponent,
     AgregarVentaComponent,
-    ListarVentaComponent
+    ListarVentaComponent,
+    MenuComponent,
+    FbdatePipe
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig,'ventasapp-1276e'),
