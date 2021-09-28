@@ -50,6 +50,7 @@ export class UsuarioService {
 
 
   agregarUsuario(usuario:Usuario){
+    console.log('usuario',usuario)
     usuario.usuario_id = this.agregarCodigoId(usuario)
     return  this.afs.doc(this.coleccion_usuarios+'/'+ usuario.usuario_id).set(usuario)
   }

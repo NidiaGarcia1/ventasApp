@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { UsuarioService } from 'src/app/servicios/usuario/usuario.service';
-import { Rol } from 'src/app/interfaces/Rol';
+import { Rol } from 'src/app/interfaces/rol';
 
 @Component({
   selector: 'app-registrar',
@@ -39,6 +39,8 @@ export class RegistrarComponent implements OnInit {
   registrarUsuario(frmRegistro: NgForm){
     if (frmRegistro.valid) {
       if(this.roles_seleccionados.length > 0){
+        //Se agregan los roles seleccionados
+        this.usuario.roles = this.roles_seleccionados;
         //registrar al usuario
         this.usuarioService.agregarUsuario(this.usuario).then(()=>{
           alert('Usuario registrado correctamente!');
